@@ -20,5 +20,11 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./provision/storage.bicep
-        parameters: storagePrefix=mystore
+        parameters: 
+          storagePrefix=mystore 
+          environment_name = "containerEnv"
+          acrName = "Dir4CbSlSkGyVEPdh8kd5w"
+          location = "west-europe"
+          storage_account_name =  "dapraca23948394"
+          storage_container_name = "state"
         failOnStdErr: false
