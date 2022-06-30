@@ -17,14 +17,14 @@ jobs:
     - name: deploy
       uses: azure/arm-deploy@v1
       with:
+        deploymentMode: Complete
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: ./provision/storage.bicep
+        template:  ./provision/dapr.bicep
         parameters: 
-          storagePrefix=mystore 
-          environment_name = "containerEnv"
-          acrName = "Dir4CbSlSkGyVEPdh8kd5w"
-          location = "west-europe"
-          storage_account_name =  "dapraca23948394"
-          storage_container_name = "state"
+          environment_name=containerEnv
+          acrName=Dir4CbSlSkGyVEPww8kd5w
+          location=westeurope
+          storage_account_name=dapraca23948394
+          storage_container_name=state
         failOnStdErr: false
