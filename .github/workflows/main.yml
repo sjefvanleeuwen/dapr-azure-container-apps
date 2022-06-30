@@ -23,7 +23,7 @@ jobs:
         parameters: 
           environment_name=containerEnv
           acrName=Dir4CbSlSkGyVEPdh8kd5w
-          location=west-europe
+          location=westeurope
           storage_account_name=dapraca23948394
           storage_container_name=state
         failOnStdErr: false
