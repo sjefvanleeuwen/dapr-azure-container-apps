@@ -19,10 +19,9 @@ jobs:
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: ./provision/storage.bicep
+        template: ./provision/dapr.bicep
         parameters: 
           environment_name=containerEnv
-          storagePrefix=mystore 
           acrName=Dir4CbSlSkGyVEPdh8kd5w
           location=west-europe
           storage_account_name=dapraca23948394
