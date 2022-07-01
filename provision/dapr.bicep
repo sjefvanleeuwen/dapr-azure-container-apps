@@ -1,7 +1,7 @@
 param environment_name string
 param location string = resourceGroup().location
 
-param serviceBusNamespaceName string = 'myapp${uniqueString(resourceGroup().id)}'
+param serviceBusNamespaceName string = 'pubsub${uniqueString(resourceGroup().id)}'
 param skuName string = 'Basic'
 
 var logAnalyticsWorkspaceName = 'logs-${environment_name}'
