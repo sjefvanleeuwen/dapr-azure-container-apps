@@ -21,6 +21,7 @@ param acrSku string = 'Basic'
 param queueNames array = [
   'queue1'
   'queue2'
+  'queue3'
 ]
 
 var deadLetterFirehoseQueueName = 'deadletterfirehose'
