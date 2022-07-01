@@ -20,7 +20,9 @@ az ad sp create-for-rbac --name dapr-aca --role contributor --scopes /subscripti
 
 Under secrets for actions in your github repository settings put your secrets:
 
-paste the json in AZURE_CREDENTIALS and the `dapr-aca` in AZURE_RG
+* paste the json in AZURE_CREDENTIALS 
+* add `dapr-aca` in AZURE_RG
+* Your Subcription id in AZURE_SUBSCRIPTION
 
 
 
