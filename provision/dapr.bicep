@@ -19,9 +19,7 @@ param acrSku string = 'Basic'
 
 //setup service bus
 param queueNames array = [
-  'queue1'
-  'queue2'
-  'queue3'
+  'default'
 ]
 
 var deadLetterFirehoseQueueName = 'deadletterfirehose'
