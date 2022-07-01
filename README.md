@@ -1,6 +1,6 @@
 # dapr-azure-container-apps
 
-Tryout dapr on azure container apps
+Tryout dapr on azure container apps provisioning using bicep
 
 ## Prerequisites
 
