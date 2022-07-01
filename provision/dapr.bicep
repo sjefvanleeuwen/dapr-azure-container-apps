@@ -3,6 +3,9 @@ param location string = 'westeurope'
 param storage_account_name string
 param storage_container_name string
 
+param serviceBusNamespaceName string = 'myapp${uniqueString(resourceGroup().id)}'
+param skuName string = 'Basic'
+
 var logAnalyticsWorkspaceName = 'logs-${environment_name}'
 var appInsightsName = 'appins-${environment_name}'
 
@@ -13,6 +16,44 @@ param acrName string = 'acr${uniqueString(resourceGroup().id)}'
 
 @description('Provide a tier of your Azure Container Registry.')
 param acrSku string = 'Basic'
+
+//setup service bus
+param queueNames array = [
+  'queue1'
+  'queue2'
+]
+
+var deadLetterFirehoseQueueName = 'deadletterfirehose'
+
+resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2018-01-01-preview' = {
+  name: serviceBusNamespaceName
+  location: location
+  sku: {
+    name: skuName
+  }
+}
+
+resource deadLetterFirehoseQueue 'Microsoft.ServiceBus/namespaces/queues@2018-01-01-preview' = {
+  name: deadLetterFirehoseQueueName
+  parent: serviceBusNamespace
+  properties: {
+    requiresDuplicateDetection: false
+    requiresSession: false
+    enablePartitioning: false
+  }
+}
+
+resource queues 'Microsoft.ServiceBus/namespaces/queues@2018-01-01-preview' = [for queueName in queueNames: {
+  parent: serviceBusNamespace
+  name: queueName
+  dependsOn: [
+    deadLetterFirehoseQueue
+  ]
+  properties: {
+    forwardDeadLetteredMessagesTo: deadLetterFirehoseQueueName
+  }
+}]
+
 
 //storage account
 resource mainstorage 'Microsoft.Storage/storageAccounts@2021-02-01' = {
