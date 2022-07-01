@@ -23,8 +23,4 @@ jobs:
         template:  ./provision/dapr.bicep
         parameters: 
           environment_name=containerEnv
-          acrName=Dir4CbSlSkGyVEPww8kd5w
-          location=westeurope
-          storage_account_name=dapraca23948394
-          storage_container_name=state
         failOnStdErr: false

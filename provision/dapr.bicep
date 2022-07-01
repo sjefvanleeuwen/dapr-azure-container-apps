@@ -1,7 +1,5 @@
 param environment_name string
-param location string = 'westeurope'
-param storage_account_name string
-param storage_container_name string
+param location string = resourceGroup().location
 
 param serviceBusNamespaceName string = 'myapp${uniqueString(resourceGroup().id)}'
 param skuName string = 'Basic'
@@ -54,9 +52,10 @@ resource queues 'Microsoft.ServiceBus/namespaces/queues@2018-01-01-preview' = [f
 }]
 
 
+var uniqueStorageName = 'state${uniqueString(resourceGroup().id)}'
 //storage account
 resource mainstorage 'Microsoft.Storage/storageAccounts@2021-02-01' = {
-  name: storage_account_name
+  name: uniqueStorageName
   location: location
   kind: 'StorageV2'
   sku: {
@@ -126,17 +125,17 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
       secrets: [
         {
           name: 'storageaccountkey'
-          value: listKeys(resourceId('Microsoft.Storage/storageAccounts/', storage_account_name), '2021-09-01').keys[0].value
+          value: listKeys(resourceId('Microsoft.Storage/storageAccounts/', uniqueStorageName), '2021-09-01').keys[0].value
         }
       ]
       metadata: [
         {
           name: 'accountName'
-          value: storage_account_name
+          value: uniqueStorageName
         }
         {
           name: 'containerName'
-          value: storage_container_name
+          value: uniqueStorageName
         }
         {
           name: 'accountKey'
