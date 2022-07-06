@@ -135,6 +135,10 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
           secretRef: 'pubsubconnectionstring'
         }
       ]
+      scopes: [
+        'checkoutapp'
+        'order-processor'
+      ]
     }
   }
 
