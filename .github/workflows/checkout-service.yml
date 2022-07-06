@@ -7,7 +7,7 @@ on:
       - main
     paths:
       - src/services/order-processor/**
-name: checkout service containerization
+name: order processor containerization
 
 jobs:
     build-and-deploy:
