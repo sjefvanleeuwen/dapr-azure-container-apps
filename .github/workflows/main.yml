@@ -17,7 +17,7 @@ jobs:
     - name: deploy
       uses: azure/arm-deploy@v1
       with:
-        deploymentMode: Complete
+        deploymentMode: Incremental
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template:  ./provision/dapr.bicep
