@@ -22,7 +22,7 @@ param queueNames array = [
 
 var deadLetterFirehoseQueueName = 'deadletterfirehose'
 
-resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2018-01-01-preview' = {
+resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2021-11-01' = {
   name: serviceBusNamespaceName
   location: location
   sku: {
@@ -30,7 +30,7 @@ resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2018-01-01-preview
   }
 }
 
-resource deadLetterFirehoseQueue 'Microsoft.ServiceBus/namespaces/queues@2018-01-01-preview' = {
+resource deadLetterFirehoseQueue 'Microsoft.ServiceBus/namespaces/queues@2021-11-01' = {
   name: deadLetterFirehoseQueueName
   parent: serviceBusNamespace
   properties: {
@@ -40,7 +40,7 @@ resource deadLetterFirehoseQueue 'Microsoft.ServiceBus/namespaces/queues@2018-01
   }
 }
 
-resource queues 'Microsoft.ServiceBus/namespaces/queues@2018-01-01-preview' = [for queueName in queueNames: {
+resource queues 'Microsoft.ServiceBus/namespaces/queues@2021-11-01' = [for queueName in queueNames: {
   parent: serviceBusNamespace
   name: queueName
   dependsOn: [
@@ -126,7 +126,7 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
       secrets: [
         {
           name: 'pubsubConnectionString'
-          value: listKeys(serviceBusNamespace.id, '2018-01-01-preview').primaryConnectionString
+          value: listKeys(serviceBusNamespace.id, '2021-11-01').primaryConnectionString
         }
       ]
       
