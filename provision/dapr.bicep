@@ -126,7 +126,7 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
       secrets: [
         {
           name: 'pubsubConnectionString'
-          value: listKeys(serviceBusNamespace.id, '2021-11-01').primaryConnectionString
+          value: '' //'listKeys(serviceBusNamespace.id, '2021-11-01').primaryConnectionString'
         }
       ]
       
