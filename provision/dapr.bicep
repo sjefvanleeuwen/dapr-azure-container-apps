@@ -115,6 +115,30 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
       }
     }
   }
+
+  resource pubSubDaprComponent 'daprComponents@2022-03-01' = {
+    name: 'pubsub'
+    properties: {
+      componentType: 'pubsub.azure.servicebus'
+      version: 'v1'
+      ignoreErrors: false
+      initTimeout: '5s'
+      secrets: [
+        {
+          name: 'pubsubConnectionString'
+          value: listKeys(serviceBusNamespace.id, serviceBusNamespace.apiVersion).primaryConnectionString
+        }
+      ]
+      
+      metadata: [
+        {
+          name: 'connectionString' //Required when not using Azure Authentication.
+          secretRef: 'pubsubConnectionString'
+        }
+      ]
+    }
+  }
+
   resource daprComponent 'daprComponents@2022-03-01' = {
     name: 'statestore'
     properties: {
