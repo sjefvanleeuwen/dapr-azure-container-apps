@@ -77,7 +77,6 @@ resource acrResource 'Microsoft.ContainerRegistry/registries@2021-06-01-preview'
 @description('Output the login server property for later use')
 output loginServer string = acrResource.properties.loginServer
 
-
 resource logAnalyticsWorkspace'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
   name: logAnalyticsWorkspaceName
   location: location
@@ -129,7 +128,7 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
           value: 'dummy' //'listKeys(serviceBusNamespace.id, '2021-11-01').primaryConnectionString'
         }
       ]
-      
+
       metadata: [
         {
           name: 'connectionString' //Required when not using Azure Authentication.
@@ -172,6 +171,7 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
     }
   }
 }
+acrResource.listCreden
 
 resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
   name: 'checkoutapp'
@@ -189,6 +189,19 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
         appProtocol: 'http'
         appPort: 7001
       }
+      registries: [
+				{
+					passwordSecretRef: 'registry-password'
+					server: acrResource.name
+					username: acrResource.properties.loginServer
+				}
+			]
+			secrets: [
+				{
+					name: 'registry-password'
+					value: acrResource.listCredentials().passwords[0].value
+				}
+			]
     }
     template: {
       containers: [
