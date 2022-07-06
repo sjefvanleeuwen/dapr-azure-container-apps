@@ -211,8 +211,8 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
           image: '${acrResource.properties.loginServer}/checkout:latest'
           name: 'checkout'
           resources: {
-            cpu: json('0.5')
-            memory: '1.0Gi'
+            cpu: json('1.0')
+            memory: '2.0Gi'
           }
         }
       ]
@@ -269,8 +269,8 @@ resource orderprocessorapp 'Microsoft.App/containerApps@2022-03-01' = {
             }
           ]
           resources: {
-            cpu: json('0.5')
-            memory: '1.0Gi'
+            cpu: json('1.0')
+            memory: '2.0Gi'
           }
         }
       ]
