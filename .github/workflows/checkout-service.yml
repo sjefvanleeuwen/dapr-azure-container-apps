@@ -13,7 +13,7 @@ jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
         env:
-          containerName: checkout service
+          containerName: checkout
         steps:
         # checkout the repo
         - name: 'Checkout GitHub Action'
