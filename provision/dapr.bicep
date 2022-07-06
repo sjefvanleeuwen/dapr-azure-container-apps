@@ -167,7 +167,7 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
       ]
       scopes: [
         'checkoutapp'
-        'processingapp'
+        'order-processor'
       ]
     }
   }
