@@ -173,6 +173,48 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
   }
 }
 
+resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
+  name: 'checkoutapp'
+  location: location
+  properties: {
+    managedEnvironmentId: environment.id
+    configuration: {
+      ingress: {
+        external: false
+        targetPort: 3501
+      }
+      dapr: {
+        enabled: true
+        appId: 'checkoutapp'
+        appProtocol: 'http'
+        appPort: 7001
+      }
+    }
+    template: {
+      containers: [
+        {
+          image: '${acrResource.properties.loginServer}/checkout:latest'
+          name: 'checkout'
+          env: [
+            {
+              name: 'APP_PORT'
+              value: '7001'
+            }
+          ]
+          resources: {
+            cpu: json('0.5')
+            memory: '1.0Gi'
+          }
+        }
+      ]
+      scale: {
+        minReplicas: 1
+        maxReplicas: 1
+      }
+    }
+  }
+}
+
 resource nodeapp 'Microsoft.App/containerApps@2022-03-01' = {
   name: 'nodeapp'
   location: location
