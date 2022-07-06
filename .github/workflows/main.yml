@@ -1,4 +1,9 @@
-on: [push]
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - provision/**
 name: Bicep deploy
 jobs:
   build-and-deploy:
