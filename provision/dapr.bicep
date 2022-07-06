@@ -191,8 +191,8 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
       registries: [
 				{
 					passwordSecretRef: 'registry-password'
-					server: acrResource.name
-					username: acrResource.properties.loginServer
+					server: acrResource.properties.loginServer
+					username: acrResource.name
 				}
 			]
 			secrets: [
