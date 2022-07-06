@@ -6,14 +6,14 @@ on:
     branches:
       - main
     paths:
-      - src/services/checkout/**
-name: checkout service containerization
+      - src/services/order-processor/**
+name: order processor service containerization
 
 jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
         env:
-          containerName: checkout
+          containerName: order-processor
         steps:
         # checkout the repo
         - name: 'Checkout GitHub Action'
@@ -32,17 +32,17 @@ jobs:
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
             cd src/services/checkout
-            docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/$containerName:${{ github.sha }}
-            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/$containerName:${{ github.sha }}
+            docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:${{ github.sha }}
+            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:${{ github.sha }}
 
         - name: 'Deploy to Azure Container Instances'
           uses: 'azure/aci-deploy@v1'
           with:
             resource-group: ${{ secrets.AZURE_RG }}
             dns-name-label: ${{ secrets.AZURE_RG }}${{ github.run_number }}
-            image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/$containerName:${{ github.sha }}
+            image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:${{ github.sha }}
             registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
             registry-username: ${{ secrets.REGISTRY_USERNAME }}
             registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-            name: aci-$containerName
+            name: aci-${{ env.containerName }}
             location: 'west europe'

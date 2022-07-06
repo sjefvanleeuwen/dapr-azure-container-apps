@@ -6,14 +6,14 @@ on:
     branches:
       - main
     paths:
-      - src/services/order-processor/**
-name: order processor containerization
+      - src/services/checkout/**
+name: checkout service containerization
 
 jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
         env:
-          containerName: order-processor
+          containerName: checkout service
         steps:
         # checkout the repo
         - name: 'Checkout GitHub Action'
