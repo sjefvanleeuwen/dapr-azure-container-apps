@@ -255,8 +255,8 @@ resource orderprocessorapp 'Microsoft.App/containerApps@2022-03-01' = {
     template: {
       containers: [
         {
-          image: '${acrResource.properties.loginServer}/checkout:latest'
-          name: 'checkout'
+          image: '${acrResource.properties.loginServer}/order:latest'
+          name: 'order'
           env: [
             {
               name: 'APP_PORT'
