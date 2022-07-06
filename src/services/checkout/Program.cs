@@ -15,10 +15,12 @@ for (int i = 1; i <= int.MaxValue; i++) {
     var content = new StringContent(orderJson, Encoding.UTF8, "application/json");
 
     // Invoking a service
-    var response = await client.PostAsync($"{baseURL}/orders", content);
+    var task = Task.Run(() => client.PostAsync($"{baseURL}/orders", content)); 
+    task.Wait();
+    var response = task.Result;
     Console.WriteLine("Yes, Order passed: " + order);
 
-    Thread.Sleep(TimeSpan.FromSeconds(10));
+    Thread.Sleep(TimeSpan.FromSeconds(1));
 }
 
 public record Order([property: JsonPropertyName("orderId")] int OrderId);
