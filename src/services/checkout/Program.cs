@@ -16,9 +16,9 @@ for (int i = 1; i <= int.MaxValue; i++) {
 
     // Invoking a service
     var response = await client.PostAsync($"{baseURL}/orders", content);
-    Console.WriteLine("Order passed: " + order);
+    Console.WriteLine("Yes, Order passed: " + order);
 
-    await Task.Delay(TimeSpan.FromSeconds(10));
+    Thread.Sleep(TimeSpan.FromSeconds(10));
 }
 
 public record Order([property: JsonPropertyName("orderId")] int OrderId);
