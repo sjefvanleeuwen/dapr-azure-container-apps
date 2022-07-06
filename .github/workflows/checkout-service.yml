@@ -33,6 +33,7 @@ jobs:
         - run: |
             cd src/services/checkout
             docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:${{ github.sha }}
+            docker tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:${{ github.sha }} ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:latest
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:${{ github.sha }}
 
         # - name: 'Deploy to Azure Container Instances'
