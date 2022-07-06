@@ -180,11 +180,61 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
     configuration: {
       ingress: {
         external: false
-        targetPort: 3501
+        targetPort: 3500
       }
       dapr: {
         enabled: true
         appId: 'checkoutapp'
+      }
+      registries: [
+				{
+					passwordSecretRef: 'registry-password'
+					server: acrResource.properties.loginServer
+					username: acrResource.name
+				}
+			]
+			secrets: [
+				{
+					name: 'registry-password'
+					value: acrResource.listCredentials().passwords[0].value
+				}
+			]
+    }
+    template: {
+      containers: [
+        {
+          image: '${acrResource.properties.loginServer}/checkout:latest'
+          name: 'checkout'
+          resources: {
+            cpu: json('0.5')
+            memory: '1.0Gi'
+          }
+        }
+      ]
+      scale: {
+        minReplicas: 1
+        maxReplicas: 1
+      }
+    }
+  }
+  dependsOn: [
+    orderprocessorapp
+  ]
+}
+
+resource orderprocessorapp 'Microsoft.App/containerApps@2022-03-01' = {
+  name: 'orderprocessorapp'
+  location: location
+  properties: {
+    managedEnvironmentId: environment.id
+    configuration: {
+      ingress: {
+        external: false
+        targetPort: 3501
+      }
+      dapr: {
+        enabled: true
+        appId: 'order-processor'
         appProtocol: 'http'
         appPort: 7001
       }
@@ -227,77 +277,78 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
   }
 }
 
-resource nodeapp 'Microsoft.App/containerApps@2022-03-01' = {
-  name: 'nodeapp'
-  location: location
-  properties: {
-    managedEnvironmentId: environment.id
-    configuration: {
-      ingress: {
-        external: false
-        targetPort: 3000
-      }
-      dapr: {
-        enabled: true
-        appId: 'nodeapp'
-        appProtocol: 'http'
-        appPort: 3000
-      }
-    }
-    template: {
-      containers: [
-        {
-          image: 'dapriosamples/hello-k8s-node:latest'
-          name: 'hello-k8s-node'
-          env: [
-            {
-              name: 'APP_PORT'
-              value: '3000'
-            }
-          ]
-          resources: {
-            cpu: json('0.5')
-            memory: '1.0Gi'
-          }
-        }
-      ]
-      scale: {
-        minReplicas: 1
-        maxReplicas: 1
-      }
-    }
-  }
-}
 
-resource pythonapp 'Microsoft.App/containerApps@2022-03-01' = {
-  name: 'pythonapp'
-  location: location
-  properties: {
-    managedEnvironmentId: environment.id
-    configuration: {
-      dapr: {
-        enabled: true
-        appId: 'pythonapp'
-      }
-    }
-    template: {
-      containers: [
-        {
-          image: 'dapriosamples/hello-k8s-python:latest'
-          name: 'hello-k8s-python'
-          resources: {
-            cpu: json('0.5')
-            memory: '1.0Gi'
-          }
-        }
-      ]
-      scale: {
-        minReplicas: 1
-        maxReplicas: 1
-      }
-    }
-  }
-  dependsOn: [
-    nodeapp
-  ]
-}
+// resource nodeapp 'Microsoft.App/containerApps@2022-03-01' = {
+//   name: 'nodeapp'
+//   location: location
+//   properties: {
+//     managedEnvironmentId: environment.id
+//     configuration: {
+//       ingress: {
+//         external: false
+//         targetPort: 3000
+//       }
+//       dapr: {
+//         enabled: true
+//         appId: 'nodeapp'
+//         appProtocol: 'http'
+//         appPort: 3000
+//       }
+//     }
+//     template: {
+//       containers: [
+//         {
+//           image: 'dapriosamples/hello-k8s-node:latest'
+//           name: 'hello-k8s-node'
+//           env: [
+//             {
+//               name: 'APP_PORT'
+//               value: '3000'
+//             }
+//           ]
+//           resources: {
+//             cpu: json('0.5')
+//             memory: '1.0Gi'
+//           }
+//         }
+//       ]
+//       scale: {
+//         minReplicas: 1
+//         maxReplicas: 1
+//       }
+//     }
+//   }
+// }
+
+// resource pythonapp 'Microsoft.App/containerApps@2022-03-01' = {
+//   name: 'pythonapp'
+//   location: location
+//   properties: {
+//     managedEnvironmentId: environment.id
+//     configuration: {
+//       dapr: {
+//         enabled: true
+//         appId: 'pythonapp'
+//       }
+//     }
+//     template: {
+//       containers: [
+//         {
+//           image: 'dapriosamples/hello-k8s-python:latest'
+//           name: 'hello-k8s-python'
+//           resources: {
+//             cpu: json('0.5')
+//             memory: '1.0Gi'
+//           }
+//         }
+//       ]
+//       scale: {
+//         minReplicas: 1
+//         maxReplicas: 1
+//       }
+//     }
+//   }
+//   dependsOn: [
+//     nodeapp
+//   ]
+// }
