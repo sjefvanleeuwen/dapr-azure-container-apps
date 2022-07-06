@@ -115,28 +115,28 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
     }
   }
 
-  resource pubSubDaprComponent 'daprComponents@2022-03-01' = {
-    name: 'pubsub'
-    properties: {
-      componentType: 'pubsub.azure.servicebus'
-      version: 'v1'
-      ignoreErrors: false
-      initTimeout: '5s'
-      secrets: [
-        {
-          name: 'pubsubconnectionstring'
-          value: 'dummy' //'listKeys(serviceBusNamespace.id, '2021-11-01').primaryConnectionString'
-        }
-      ]
+  // resource pubSubDaprComponent 'daprComponents@2022-03-01' = {
+  //   name: 'pubsub'
+  //   properties: {
+  //     componentType: 'pubsub.azure.servicebus'
+  //     version: 'v1'
+  //     ignoreErrors: false
+  //     initTimeout: '5s'
+  //     secrets: [
+  //       {
+  //         name: 'pubsubconnectionstring'
+  //         value: 'dummy' //'listKeys(serviceBusNamespace.id, '2021-11-01').primaryConnectionString'
+  //       }
+  //     ]
 
-      metadata: [
-        {
-          name: 'connectionString' //Required when not using Azure Authentication.
-          secretRef: 'pubsubconnectionstring'
-        }
-      ]
-    }
-  }
+  //     metadata: [
+  //       {
+  //         name: 'connectionString' //Required when not using Azure Authentication.
+  //         secretRef: 'pubsubconnectionstring'
+  //       }
+  //     ]
+  //   }
+  // }
 
   resource daprComponent 'daprComponents@2022-03-01' = {
     name: 'statestore'
@@ -166,7 +166,8 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
         }
       ]
       scopes: [
-        'nodeapp'
+        'checkoutapp'
+        'processingapp'
       ]
     }
   }
