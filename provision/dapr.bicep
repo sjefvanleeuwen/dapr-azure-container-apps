@@ -22,7 +22,7 @@ param queueNames array = [
 
 var deadLetterFirehoseQueueName = 'deadletterfirehose'
 
-resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2022-01-01-preview' = {
+resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2021-11-01' = {
   name: serviceBusNamespaceName
   location: location
   sku: {
@@ -125,7 +125,7 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
       secrets: [
         {
           name: 'pubsubconnectionstring'
-          value: reference(serviceBusNamespace.id,'2022-01-01').primaryConnectionString
+          value: reference(serviceBusNamespace.id,'2021-11-01').primaryConnectionString
         }
       ]
 
