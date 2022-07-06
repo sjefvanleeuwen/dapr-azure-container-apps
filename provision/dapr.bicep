@@ -133,7 +133,7 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
       metadata: [
         {
           name: 'connectionString' //Required when not using Azure Authentication.
-          secretRef: 'pubsubConnectionString'
+          secretRef: 'pubsubConnectionstring'
         }
       ]
     }
