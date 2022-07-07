@@ -3,7 +3,7 @@ using Dapr.Client;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-for (int i = 1; i <= 10; i++) {
+for (int i = 1; i <= int.MaxValue; i++) {
     var order = new Order(i);
     using var client = new DaprClientBuilder().Build();
 
