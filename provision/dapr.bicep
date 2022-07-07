@@ -26,9 +26,18 @@ resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2021-11-01' = {
   name: serviceBusNamespaceName
   location: location
   sku: {
-    name: skuName
+    name: 'Standard'
   }
 }
+
+param topics array = [
+  'newOrder'
+]
+
+resource serviceBusTopics 'Microsoft.ServiceBus/namespaces/topics@2021-11-01' =[for topic in topics : {
+  parent: serviceBusNamespace
+  name: topic
+}]
 
 resource deadLetterFirehoseQueue 'Microsoft.ServiceBus/namespaces/queues@2021-11-01' = {
   name: deadLetterFirehoseQueueName
