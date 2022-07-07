@@ -232,6 +232,7 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
     }
   }
   dependsOn: [
+    serviceBusTopics
     orderprocessorapp
   ]
 }
@@ -289,4 +290,7 @@ resource orderprocessorapp 'Microsoft.App/containerApps@2022-03-01' = {
       }
     }
   }
+  dependsOn: [
+    serviceBusTopics
+  ]
 }
