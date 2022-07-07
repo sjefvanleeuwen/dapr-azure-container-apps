@@ -192,10 +192,6 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
   properties: {
     managedEnvironmentId: environment.id
     configuration: {
-      ingress: {
-        external: false
-        targetPort: 3500
-      }
       dapr: {
         enabled: true
         appId: 'checkoutapp'
@@ -220,8 +216,8 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
           image: '${acrResource.properties.loginServer}/checkout:latest'
           name: 'checkout'
           resources: {
-            cpu: json('1.0')
-            memory: '2.0Gi'
+            cpu: json('0.25')
+            memory: '0.5Gi'
           }
         }
       ]
