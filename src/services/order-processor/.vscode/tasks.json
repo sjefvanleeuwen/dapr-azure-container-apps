@@ -41,7 +41,7 @@
             "appId": "order-processor",
             "appPort": 7001,
             "httpPort": 3501,
-            "metricsPort": 9091,
+            "metricsPort": 9092,
             "grpcPort": 50001,
             "label": "daprd-debug",
             "type": "daprd",
