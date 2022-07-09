@@ -9,7 +9,7 @@ for (int i = 1; i <= int.MaxValue; i++) {
 
     // Publish an event/message using Dapr PubSub
     await client.PublishEventAsync("pubsub", "newOrder", order);
-    Console.WriteLine("Published data: " + order);
+    Console.WriteLine("New Revision Published data: " + order);
 
     await Task.Delay(TimeSpan.FromSeconds(1));
 }
