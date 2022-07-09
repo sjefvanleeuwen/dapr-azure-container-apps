@@ -36,6 +36,11 @@ jobs:
             docker tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:${{ github.sha }} ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:latest
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:${{ github.sha }}
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:latest
+        - name: Azure CLI script
+          uses: azure/CLI@v1
+          with:
+            inlineScript: |
+              az containerapp revision restart --revision ordeprocessorapp--310kvx8 --resource-group ${{ secrets.AZURE_RG }}
 
         # - name: 'Deploy to Azure Container Instances'
         #   uses: 'azure/aci-deploy@v1'

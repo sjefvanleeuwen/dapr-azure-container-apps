@@ -61,3 +61,35 @@ Under secrets for actions in your github repository settings put your secrets:
 ## Examples
 
 In the /src/services folder you can start and debug the DAPR services from VSCODE
+
+## Deploying
+
+Each example has a github action workflow associated with it. Unfortunately at this time, github does not fully support the mono repo structure, meaning that workflows are only supported from the root '~/.github/workflows folder.
+
+In this folder you will find 
+
+* checkout-service.yml
+* order-processor.yml
+
+The scripts can be either triggered when code in the `src/service/` specific service name path is changed, or you can startup the workflow manually upon the needed first container provisioning needed for setting up azure container apps.
+
+###
+
+When ACA has been deployed and the first revisions of the containers are up and running you can list them as follows:
+
+For the checkout app:
+
+```az containerapp revision list --name checkoutapp --resource-group dapr-aca -o table
+CreatedTime                Active    Replicas    TrafficWeight    HealthState    ProvisioningState    Name
+-------------------------  --------  ----------  ---------------  -------------  -------------------  --------------------
+2022-07-07T20:58:52+00:00  True      1           0                Healthy        Provisioned          checkoutapp--4thiv3g
+```
+
+For the order processor app:
+
+```az containerapp revision list --name orderprocessorapp --resource-group dapr-aca -o table
+CreatedTime                Active    Replicas    TrafficWeight    HealthState    ProvisioningState    Name
+-------------------------  --------  ----------  ---------------  -------------  -------------------  --------------------------
+2022-07-07T20:46:50+00:00  True      1           100              Healthy        Provisioned          orderprocessorapp--3l0kxv8
+```
+
