@@ -15,7 +15,7 @@ if (app.Environment.IsDevelopment()) {app.UseDeveloperExceptionPage();}
 
 // Dapr subscription in [Topic] routes orders topic to this route
 app.MapPost("/orders", [Topic("pubsub", "newOrder")] (Order order) => {
-    Console.WriteLine("Subscriber received : " + order);
+    Console.WriteLine("New Order Subscriber received : " + order);
     return Results.Ok(order);
 });
 
