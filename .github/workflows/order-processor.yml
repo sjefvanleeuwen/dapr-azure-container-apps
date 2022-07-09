@@ -40,6 +40,7 @@ jobs:
           uses: azure/CLI@v1
           with:
             inlineScript: |
+              az config set extension.use_dynamic_install=yes_without_prompt
               az containerapp revision restart --revision ordeprocessorapp--310kvx8 --resource-group ${{ secrets.AZURE_RG }}
 
         # - name: 'Deploy to Azure Container Instances'
