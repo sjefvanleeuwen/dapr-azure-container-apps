@@ -7,6 +7,38 @@ param skuName string = 'Basic'
 var logAnalyticsWorkspaceName = 'logs-${environment_name}'
 var appInsightsName = 'appins-${environment_name}'
 
+@description('The name for the Core (SQL) database')
+param databaseName string = 'actorstateaccount${uniqueString(resourceGroup().id)}'
+
+resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2021-04-15' = {
+  name: 'actorstateaccount${uniqueString(resourceGroup().id)}'
+  location: location
+  properties: {
+    enableFreeTier: false
+    databaseAccountOfferType: 'Standard'
+    consistencyPolicy: {
+      defaultConsistencyLevel: 'Session'
+    }
+    locations: [
+      {
+        locationName: location
+      }
+    ]
+  }
+}
+
+resource cosmosDB 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-04-15' = {
+  name: '${cosmosAccount.name}/${toLower(databaseName)}'
+  properties: {
+    resource: {
+      id: databaseName
+    }
+    options: {
+      throughput: 400
+    }
+  }
+}
+
 @minLength(5)
 @maxLength(50)
 @description('Provide a globally unique name of your Azure Container Registry')
@@ -150,6 +182,50 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
       ]
     }
   }
+
+  resource actorStateDaprComponent 'daprComponents@2022-03-01' = {
+    name: 'actorstate'
+    properties: {
+      componentType: 'state.azure.cosmosdb'
+      version: 'v1'
+      ignoreErrors: false
+      initTimeout: '5s'
+      secrets: [
+        {
+          name: 'masterkeysecret'
+          value: listKeys('${cosmosAccount.id}','2021-04-15').primaryMasterKey
+        }
+      ]
+      metadata: [
+        {
+          name: 'url'
+          value: cosmosAccount.properties.documentEndpoint
+        }
+        {
+          name: 'masterKey'
+          secretRef: 'masterkeysecret'
+        }
+        {
+          name: 'database'
+          value: databaseName
+        }
+        {
+          name: 'collection'
+          value: 'actorData'
+        }
+        {
+          name: 'actorStateStore'
+          value: 'true'
+        }
+      ]
+      scopes: [
+      ]
+    }
+    dependsOn: [
+      cosmosDB
+    ]
+  }
+
 
   resource daprComponent 'daprComponents@2022-03-01' = {
     name: 'statestore'
