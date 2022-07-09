@@ -41,8 +41,8 @@ jobs:
           with:
             inlineScript: |
               az config set extension.use_dynamic_install=yes_without_prompt
-              az containerapp revision restart --revision orderprocessorapp--3l0kxv8 --resource-group ${{ secrets.AZURE_RG }}
-
+              # az containerapp revision restart --revision orderprocessorapp--3l0kxv8 --resource-group ${{ secrets.AZURE_RG }}
+              az containerapp update --name orderprocessorapp --resource-group ${{ secrets.AZURE_RG }} --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:latest
         # - name: 'Deploy to Azure Container Instances'
         #   uses: 'azure/aci-deploy@v1'
         #   with:
