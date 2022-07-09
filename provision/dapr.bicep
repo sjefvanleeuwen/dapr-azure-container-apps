@@ -2,7 +2,7 @@ param environment_name string
 param location string = resourceGroup().location
 
 param serviceBusNamespaceName string = 'pubsub${uniqueString(resourceGroup().id)}'
-param skuName string = 'Basic'
+// param skuName string = 'Basic'
 
 var logAnalyticsWorkspaceName = 'logs-${environment_name}'
 var appInsightsName = 'appins-${environment_name}'
@@ -355,8 +355,8 @@ resource orderprocessorapp 'Microsoft.App/containerApps@2022-03-01' = {
             }
           ]
           resources: {
-            cpu: json('1.0')
-            memory: '2.0Gi'
+            cpu: json('0.25')
+            memory: '0.5Gi'
           }
         }
       ]
