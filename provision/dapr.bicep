@@ -187,7 +187,7 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
 }
 
 resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
-  name: 'checkoutapp--4thiv3g'
+  name: 'checkoutapp'
   location: location
   properties: {
     managedEnvironmentId: environment.id
@@ -212,6 +212,7 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
 			]
     }
     template: {
+      revisionSuffix: '4thiv3g'
       containers: [
         {
           image: '${acrResource.properties.loginServer}/checkout:latest'
@@ -235,7 +236,7 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
 }
 
 resource orderprocessorapp 'Microsoft.App/containerApps@2022-03-01' = {
-  name: 'orderprocessorapp--3l0kxv8'
+  name: 'orderprocessorapp'
   location: location
   properties: {
     managedEnvironmentId: environment.id
@@ -266,6 +267,7 @@ resource orderprocessorapp 'Microsoft.App/containerApps@2022-03-01' = {
 			]
     }
     template: {
+      revisionSuffix: '3l0kxv8'
       containers: [
         {
           image: '${acrResource.properties.loginServer}/order:latest'
