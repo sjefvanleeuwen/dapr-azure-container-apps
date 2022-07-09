@@ -14,6 +14,7 @@ resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2021-04-15' = {
   name: 'actorstateaccount${uniqueString(resourceGroup().id)}'
   location: location
   properties: {
+    enableAnalyticalStorage: true
     enableFreeTier: false
     databaseAccountOfferType: 'Standard'
     consistencyPolicy: {
