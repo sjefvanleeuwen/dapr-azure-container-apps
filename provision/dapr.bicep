@@ -187,11 +187,12 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
 }
 
 resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
-  name: 'checkoutapp'
+  name: 'checkoutapp--4thiv3g'
   location: location
   properties: {
     managedEnvironmentId: environment.id
     configuration: {
+      activeRevisionsMode: 'Single'
       dapr: {
         enabled: true
         appId: 'checkoutapp'
@@ -234,7 +235,7 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
 }
 
 resource orderprocessorapp 'Microsoft.App/containerApps@2022-03-01' = {
-  name: 'orderprocessorapp'
+  name: 'orderprocessorapp--3l0kxv8'
   location: location
   properties: {
     managedEnvironmentId: environment.id
@@ -243,6 +244,7 @@ resource orderprocessorapp 'Microsoft.App/containerApps@2022-03-01' = {
         external: false
         targetPort: 3501
       }
+      activeRevisionsMode: 'Single'
       dapr: {
         enabled: true
         appId: 'order-processor'
