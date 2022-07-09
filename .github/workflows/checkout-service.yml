@@ -40,4 +40,5 @@ jobs:
           uses: azure/CLI@v1
           with:
             inlineScript: |
+              az config set extension.use_dynamic_install=yes_without_prompt
               az containerapp revision restart --revision checkoutapp--4thiv3g --resource-group ${{ secrets.AZURE_RG }}
