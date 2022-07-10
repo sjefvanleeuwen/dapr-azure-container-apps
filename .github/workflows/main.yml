@@ -7,7 +7,7 @@ on:
       - main
     paths:
       - provision/**
-name: Bicep deploy
+name: Platform Deploy
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
