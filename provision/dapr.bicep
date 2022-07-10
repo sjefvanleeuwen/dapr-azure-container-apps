@@ -5,7 +5,7 @@ param serviceBusNamespaceName string = 'pubsub${uniqueString(resourceGroup().id)
 // param skuName string = 'Basic'
 
 var logAnalyticsWorkspaceName = 'loganalytics-${environment_name}'
-var appInsightsName = 'appins-${environment_name}'
+var appInsightsName = 'appinsights-${environment_name}'
 
 @description('The name for the Core (SQL) database')
 param databaseName string = 'actorstateaccount${uniqueString(resourceGroup().id)}'
