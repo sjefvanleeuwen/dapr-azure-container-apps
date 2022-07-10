@@ -1,8 +1,17 @@
 on:
   workflow_dispatch:
+    inputs:
+      updateRevision:
+        type: boolean
+        description: update container apps revision
     branches:
       - main
   push:
+    inputs:
+      updateRevision:
+        type: boolean
+        description: update container apps revision
+        default: true
     branches:
       - main
     paths:
@@ -37,6 +46,7 @@ jobs:
             # docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:${{ github.sha }}
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:latest
         - name: Azure CLI script
+          if: github.event.inputs.updateRevision == 'true'
           uses: azure/CLI@v1
           with:
             inlineScript: |
