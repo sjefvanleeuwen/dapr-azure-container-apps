@@ -40,7 +40,7 @@ resource cosmosDB 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-04-15
   }
 }
 
-param cosmosDbContainerName string = 'actorState'
+param cosmosDbContainerName string = 'actorData'
 
 resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2021-10-15' = {
   name: '${cosmosDB.name}/${cosmosDbContainerName}'
