@@ -47,6 +47,12 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
     properties: {
       resource: {
         id: cosmosDbContainerName
+        partitionKey: {
+          paths: [
+            '/id'
+          ]
+          kind: 'Hash'
+        }
     }
   }
 }
