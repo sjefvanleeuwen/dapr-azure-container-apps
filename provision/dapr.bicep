@@ -40,6 +40,17 @@ resource cosmosDB 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-04-15
   }
 }
 
+param cosmosDbContainerName string = 'actorState'
+
+resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2021-10-15' = {
+  name: '${cosmosDB.name}/${cosmosDbContainerName}'
+    properties: {
+      resource: {
+        id: cosmosDbContainerName
+    }
+  }
+}
+
 @minLength(5)
 @maxLength(50)
 @description('Provide a globally unique name of your Azure Container Registry')
