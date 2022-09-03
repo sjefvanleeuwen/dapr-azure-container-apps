@@ -28,7 +28,7 @@ jobs:
         deploymentMode: Incremental
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
-        template:  ./provision/dapr.bicep
+        template:  ./provision/dapr-with-vnet.bicep
         parameters: 
           environment_name=containerEnv
         failOnStdErr: false

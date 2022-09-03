@@ -196,6 +196,7 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
   location: location
   properties: {
     vnetConfiguration: {
+      internal: true
       infrastructureSubnetId: virtualNetwork::subnet1.id
     }
     daprAIInstrumentationKey: reference(appInsights.id, '2020-02-02').InstrumentationKey
