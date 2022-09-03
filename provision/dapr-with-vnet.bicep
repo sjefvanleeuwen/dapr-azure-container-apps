@@ -125,7 +125,7 @@ resource serviceBusVnetRuleSet 'Microsoft.ServiceBus/namespaces/networkRuleSets@
     virtualNetworkRules: [
       {
         subnet: {
-          id: virtualNetwork.name
+          id: virtualNetwork::subnet1.id
         }
         ignoreMissingVnetServiceEndpoint: true
       }
