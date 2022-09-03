@@ -103,13 +103,26 @@ param queueNames array = [
 
 var deadLetterFirehoseQueueName = 'deadletterfirehose'
 
+
 resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2021-11-01' = {
   name: serviceBusNamespaceName
   location: location
+  properties: {
+
+  }
   sku: {
     name: 'Standard'
   }
 }
+
+resource serviceBusVnetRules 'Microsoft.ServiceBus/namespaces/virtualnetworkrules@2018-01-01-preview' = {
+  name: 'string'
+  parent: serviceBusNamespace
+  properties: {
+    virtualNetworkSubnetId: virtualNetwork::subnet1.id
+  }
+}
+
 
 param topics array = [
   'newOrder'
