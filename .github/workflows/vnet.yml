@@ -1,10 +1,10 @@
 on:
   workflow_dispatch:
     branches:
-      - vnet
+      - main
     paths:
       - provision/**
-name: Platform Deploy
+name: VNET Deploy
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
