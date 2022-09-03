@@ -20,14 +20,14 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2019-11-01' = {
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.0.191.0/24'
+        '10.0.5.0/24'
       ]
     }
     subnets: [
       {
         name: subnetName
         properties: {
-          addressPrefix: '10.0.191.0/24'
+          addressPrefix: '10.0.5.0/24'
         }
       }
     ]
