@@ -118,7 +118,6 @@ resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2022-01-01-preview
 
 resource serviceBusVnetRuleSet 'Microsoft.ServiceBus/namespaces/networkRuleSets@2022-01-01-preview' = {
   parent: serviceBusNamespace
-  location: location
   name: 'default'
   properties: {
     publicNetworkAccess: 'Enabled'
@@ -128,7 +127,7 @@ resource serviceBusVnetRuleSet 'Microsoft.ServiceBus/namespaces/networkRuleSets@
         subnet: {
           id: virtualNetwork.id
         }
-        ignoreMissingVnetServiceEndpoint: false
+        ignoreMissingVnetServiceEndpoint: true
       }
     ]
     ipRules: []
