@@ -103,24 +103,45 @@ param queueNames array = [
 
 var deadLetterFirehoseQueueName = 'deadletterfirehose'
 
-
-resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2021-11-01' = {
+resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2022-01-01-preview' = {
   name: serviceBusNamespaceName
   location: location
   properties: {
+    publicNetworkAccess: 'Enabled'
+    disableLocalAuth: false
+    zoneRedundant: false
   }
   sku: {
     name: 'Premium' // Virtual Network Rules are available only on a Premium Messaging, a Standard or Premium EventHubs namespace.
   }
 }
 
-resource serviceBusVnetRules 'Microsoft.ServiceBus/namespaces/virtualnetworkrules@2018-01-01-preview' = {
-  name: 'string'
+resource serviceBusVnetRuleSet 'Microsoft.ServiceBus/namespaces/networkRuleSets@2022-01-01-preview' = {
   parent: serviceBusNamespace
+  name: 'default'
   properties: {
-    virtualNetworkSubnetId: virtualNetwork::subnet1.id
+    publicNetworkAccess: 'Enabled'
+    defaultAction: 'Deny'
+    virtualNetworkRules: [
+      {
+        subnet: {
+          id: virtualNetwork.id
+        }
+        ignoreMissingVnetServiceEndpoint: false
+      }
+    ]
+    ipRules: []
   }
 }
+
+
+// resource serviceBusVnetRules 'Microsoft.ServiceBus/namespaces/virtualnetworkrules@2018-01-01-preview' = {
+//   name: 'string'
+//   parent: serviceBusNamespace
+//   properties: {
+//     virtualNetworkSubnetId: virtualNetwork::subnet1.id
+//   }
+// }
 
 
 param topics array = [
