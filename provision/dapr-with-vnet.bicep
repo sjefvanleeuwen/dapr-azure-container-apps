@@ -134,13 +134,13 @@ resource serviceBusVnetRuleSet 'Microsoft.ServiceBus/namespaces/networkRuleSets@
   }
 }
 
-resource serviceBusVnetRules 'Microsoft.ServiceBus/namespaces/virtualnetworkrules@2018-01-01-preview' = {
-  name: 'string'
-  parent: serviceBusNamespace
-  properties: {
-    virtualNetworkSubnetId: virtualNetwork::subnet1.id
-  }
-}
+// resource serviceBusVnetRules 'Microsoft.ServiceBus/namespaces/virtualnetworkrules@2018-01-01-preview' = {
+//   name: 'string'
+//   parent: serviceBusNamespace
+//   properties: {
+//     virtualNetworkSubnetId: virtualNetwork::subnet1.id
+//   }
+// }
 
 
 param topics array = [
