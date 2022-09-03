@@ -125,12 +125,11 @@ resource serviceBusVnetRuleSet 'Microsoft.ServiceBus/namespaces/networkRuleSets@
     virtualNetworkRules: [
       {
         subnet: {
-          id: virtualNetwork.id
+          id: virtualNetwork.name
         }
         ignoreMissingVnetServiceEndpoint: true
       }
     ]
-    ipRules: []
   }
 }
 
