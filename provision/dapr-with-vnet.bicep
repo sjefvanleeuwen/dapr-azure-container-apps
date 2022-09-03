@@ -20,14 +20,14 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2019-11-01' = {
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.0.5.0/23' // The environment network configuration is invalid: Provided subnet must have a size of at least /23
+        '10.0.4.0/23' // The environment network configuration is invalid: Provided subnet must have a size of at least /23
       ]
     }
     subnets: [
       {
         name: subnetName
         properties: {
-          addressPrefix: '10.0.5.0/23' // The environment network configuration is invalid: Provided subnet must have a size of at least /23
+          addressPrefix: '10.0.5.0/24' // The environment network configuration is invalid: Provided subnet must have a size of at least /23
         }
       }
     ]
