@@ -14,13 +14,13 @@ param databaseName string = 'actorstateaccount${uniqueString(resourceGroup().id)
 var virtualNetworkName = 'orderapp-vnet'
 var subnetName = '${virtualNetworkName}-aca'
 
-resource virtualNetwork 'Microsoft.Network/virtualNetworks@2019-11-01' = {
+resource virtualNetwork 'Microsoft.Network/virtualNetworks@2020-11-01' = {
   name: virtualNetworkName
   location: location
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.66.0.0/22' // The environment network configuration is invalid: Provided subnet must have a size of at least /23
+        '10.66.0.0/22'
       ]
     }
     subnets: [
@@ -28,6 +28,14 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2019-11-01' = {
         name: subnetName
         properties: {
           addressPrefix: '10.66.0.0/23' // The environment network configuration is invalid: Provided subnet must have a size of at least /23
+          serviceEndpoints:[
+            {
+              service: 'Microsoft.ServiceBus'
+              locations: [
+                '*'
+              ]
+            }
+          ]
         }
       }
     ]
@@ -127,7 +135,7 @@ resource serviceBusVnetRuleSet 'Microsoft.ServiceBus/namespaces/networkRuleSets@
         subnet: {
           id: virtualNetwork::subnet1.id
         }
-        ignoreMissingVnetServiceEndpoint: true
+        ignoreMissingVnetServiceEndpoint: false
       }
     ]
   }
