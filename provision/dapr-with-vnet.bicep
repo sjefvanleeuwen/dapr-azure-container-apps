@@ -110,7 +110,7 @@ resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2021-11-01' = {
   properties: {
   }
   sku: {
-    name: 'Standard' // Virtual Network Rules are available only on a Premium Messaging, a Standard or Premium EventHubs namespace.
+    name: 'Premium' // Virtual Network Rules are available only on a Premium Messaging, a Standard or Premium EventHubs namespace.
   }
 }
 
