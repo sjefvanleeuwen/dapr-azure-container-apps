@@ -118,6 +118,7 @@ resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2022-01-01-preview
 
 resource serviceBusVnetRuleSet 'Microsoft.ServiceBus/namespaces/networkRuleSets@2022-01-01-preview' = {
   parent: serviceBusNamespace
+  location: location
   name: 'default'
   properties: {
     publicNetworkAccess: 'Enabled'
@@ -134,14 +135,13 @@ resource serviceBusVnetRuleSet 'Microsoft.ServiceBus/namespaces/networkRuleSets@
   }
 }
 
-
-// resource serviceBusVnetRules 'Microsoft.ServiceBus/namespaces/virtualnetworkrules@2018-01-01-preview' = {
-//   name: 'string'
-//   parent: serviceBusNamespace
-//   properties: {
-//     virtualNetworkSubnetId: virtualNetwork::subnet1.id
-//   }
-// }
+resource serviceBusVnetRules 'Microsoft.ServiceBus/namespaces/virtualnetworkrules@2018-01-01-preview' = {
+  name: 'string'
+  parent: serviceBusNamespace
+  properties: {
+    virtualNetworkSubnetId: virtualNetwork::subnet1.id
+  }
+}
 
 
 param topics array = [
