@@ -1,7 +1,7 @@
 param location string = resourceGroup().location
 
-var virtualNetworkName = 'orderapp-vnet'
-var subnetName = '${virtualNetworkName}-aca'
+var virtualNetworkName = '${uniqueString(resourceGroup().id)}-orderapp-vnet'
+var subnetName = '${uniqueString(resourceGroup().id)}-${virtualNetworkName}-aca'
 
 
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2019-11-01' = {
