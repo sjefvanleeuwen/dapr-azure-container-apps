@@ -336,8 +336,8 @@ resource orderprocessorapp 'Microsoft.App/containerApps@2022-03-01' = {
     managedEnvironmentId: environment.id
     configuration: {
       ingress: {
-        external: false
-        targetPort: 3501
+        external: true
+        targetPort: 7001
       }
       activeRevisionsMode: 'Single'
       dapr: {
