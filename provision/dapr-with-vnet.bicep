@@ -12,9 +12,7 @@ param databaseName string = 'actorstateaccount${uniqueString(resourceGroup().id)
 
 
 var virtualNetworkName = 'orderapp-vnet'
-//var subnetName = '${virtualNetworkName}-aca'
-var subnetName = 'AzureFirewallSubnet'
-
+var subnetName = '${virtualNetworkName}-aca'
 
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2020-11-01' = {
   name: virtualNetworkName
@@ -143,15 +141,6 @@ resource serviceBusVnetRuleSet 'Microsoft.ServiceBus/namespaces/networkRuleSets@
   }
 }
 
-// resource serviceBusVnetRules 'Microsoft.ServiceBus/namespaces/virtualnetworkrules@2018-01-01-preview' = {
-//   name: 'string'
-//   parent: serviceBusNamespace
-//   properties: {
-//     virtualNetworkSubnetId: virtualNetwork::subnet1.id
-//   }
-// }
-
-
 param topics array = [
   'newOrder'
 ]
@@ -249,7 +238,7 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
       }
     }
   }
-
+  
   resource pubSubDaprComponent 'daprComponents@2022-03-01' = {
     name: 'pubsub'
     properties: {
@@ -355,6 +344,8 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
     }
   }
 }
+
+output environmentIp string = environment.properties.staticIp
 
 resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
   name: 'checkoutapp'
