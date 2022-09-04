@@ -20,14 +20,14 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2020-11-01' = {
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.66.0.0/22'
+        '10.66.66.0/23'
       ]
     }
     subnets: [
       {
         name: subnetName
         properties: {
-          addressPrefix: '10.66.0.0/23' // The environment network configuration is invalid: Provided subnet must have a size of at least /23
+          addressPrefix: '10.66.66.0/23' // The environment network configuration is invalid: Provided subnet must have a size of at least /23
           serviceEndpoints:[
             {
               service: 'Microsoft.ServiceBus'
