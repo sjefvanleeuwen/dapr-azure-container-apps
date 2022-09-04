@@ -164,6 +164,9 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
   name: environment_name
   location: location
   properties: {
+    vnetConfiguration: {
+      internal: true
+    }
     daprAIInstrumentationKey: reference(appInsights.id, '2020-02-02').InstrumentationKey
     appLogsConfiguration: {
       destination: 'log-analytics'
