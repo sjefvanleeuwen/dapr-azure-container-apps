@@ -12,7 +12,9 @@ param databaseName string = 'actorstateaccount${uniqueString(resourceGroup().id)
 
 
 var virtualNetworkName = 'orderapp-vnet'
-var subnetName = '${virtualNetworkName}-aca'
+//var subnetName = '${virtualNetworkName}-aca'
+var subnetName = 'AzureFirewallSubnet'
+
 
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2020-11-01' = {
   name: virtualNetworkName
