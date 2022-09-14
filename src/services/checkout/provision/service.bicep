@@ -3,7 +3,7 @@ param maxReplicas int = 1
 
 param location string = resourceGroup().location
 resource environment 'Microsoft.App/managedEnvironments@2022-03-01' existing = {
-  name: 'containerEnv${uniqueString(resourceGroup().id)}' 
+  name: 'env${uniqueString(resourceGroup().id)}' 
 }
 resource acr 'Microsoft.ContainerRegistry/registries@2021-06-01-preview' existing = {
   name: 'acr${uniqueString(resourceGroup().id)}' 
