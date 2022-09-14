@@ -1,0 +1,32 @@
+on:
+  workflow_dispatch:
+    branches:
+      - main
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - provision/dapr.bicep
+name: 7. Setup Container App Order Processor
+jobs:
+  bicep-provision-environment:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout code
+      - uses: actions/checkout@main
+
+        # Log into Azure
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+        # Deploy Bicep file
+      - name: deploy
+        uses: azure/arm-deploy@v1
+        with:
+          deploymentMode: Incremental
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ secrets.AZURE_RG }}
+          template: ./src/services/order-processor/provision/service.bicep
+          parameters: ./src/services/order-processor/provision/service.parameters.json
+          failOnStdErr: false

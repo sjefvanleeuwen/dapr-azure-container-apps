@@ -1,3 +1,6 @@
+param minReplicas int = 1
+param maxReplicas int = 1
+
 param location string = resourceGroup().location
 resource environment 'Microsoft.App/managedEnvironments@2022-03-01' existing = {
   name: 'containerEnv${uniqueString(resourceGroup().id)}' 
@@ -44,8 +47,8 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
         }
       ]
       scale: {
-        minReplicas: 1
-        maxReplicas: 1
+        minReplicas: minReplicas
+        maxReplicas: maxReplicas
       }
     }
   }
