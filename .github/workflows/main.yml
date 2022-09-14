@@ -9,7 +9,7 @@ on:
   #     - provision/dapr.bicep
 name: Setup Environment
 jobs:
-  build-and-deploy:
+  bicep-provision-environment:
     runs-on: ubuntu-latest
     steps:
       # Checkout code
