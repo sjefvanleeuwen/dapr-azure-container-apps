@@ -7,7 +7,7 @@ on:
   #     - main
   #   paths:
   #     - provision/dapr.bicep
-name: Setup State Storage
+name: 2. Setup State Storage
 jobs:
   bicep-provision-state-storage:
     runs-on: ubuntu-latest

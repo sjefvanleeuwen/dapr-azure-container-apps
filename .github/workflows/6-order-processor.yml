@@ -16,7 +16,7 @@ on:
   #     - main
   #   paths:
   #     - src/services/order-processor/**
-name: order processor service containerization
+name: 6. order processor service containerization
 
 jobs:
     build-and-push-container-order-processor:

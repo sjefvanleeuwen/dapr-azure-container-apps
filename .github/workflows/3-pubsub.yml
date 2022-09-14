@@ -2,7 +2,7 @@ on:
   workflow_dispatch:
     branches:
       - main
-name: Setup PubSub Service Bus
+name: 3. Setup PubSub Service Bus
 jobs:
   bicep-deploy-pubsub-service-bus:
     runs-on: ubuntu-latest

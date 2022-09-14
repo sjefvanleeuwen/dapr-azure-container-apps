@@ -2,7 +2,7 @@ on:
   workflow_dispatch:
     branches:
       - main
-name: Setup container registry
+name: 4. Setup container registry
 jobs:
   bicep-deploy-azure-container-registry:
     runs-on: ubuntu-latest

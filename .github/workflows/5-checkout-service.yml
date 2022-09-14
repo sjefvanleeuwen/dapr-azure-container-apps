@@ -16,7 +16,7 @@ on:
   #     - main
   #   paths:
   #     - src/services/checkout/**
-name: checkout service containerization
+name: 5. checkout service containerization
 
 jobs:
     build-and-push-container-checkout-service:
