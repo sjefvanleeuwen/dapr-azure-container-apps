@@ -10,7 +10,6 @@ var appInsightsName = 'appinsights-${environment_name}'
 @description('The name for the Core (SQL) database')
 param databaseName string = 'actorstateaccount${uniqueString(resourceGroup().id)}'
 
-
 var virtualNetworkName = 'orderapp-vnet'
 var subnetName = '${virtualNetworkName}-aca'
 
@@ -393,68 +392,7 @@ resource checkoutapp 'Microsoft.App/containerApps@2022-03-01' = {
   dependsOn: [
     virtualNetwork
     serviceBusTopics
-    orderprocessorapp
   ]
 }
 
-resource orderprocessorapp 'Microsoft.App/containerApps@2022-03-01' = {
-  name: 'orderprocessorapp'
-  location: location
-  properties: {
-    managedEnvironmentId: environment.id
-    configuration: {
-      ingress: {
-        external: false
-        targetPort: 3501
-      }
-      activeRevisionsMode: 'Single'
-      dapr: {
-        enabled: true
-        appId: 'order-processor'
-        appProtocol: 'http'
-        appPort: 7001
-      }
-      registries: [
-				{
-					passwordSecretRef: 'registry-password'
-					server: acrResource.properties.loginServer
-					username: acrResource.name
-				}
-			]
-			secrets: [
-				{
-					name: 'registry-password'
-					value: acrResource.listCredentials().passwords[0].value
-				}
-			]
-    }
-    template: {
-      revisionSuffix: '3l0kxv8'
-      containers: [
-        {
-          image: '${acrResource.properties.loginServer}/order:latest'
-          name: 'order'
-          env: [
-            {
-              name: 'APP_PORT'
-              value: '7001'
-            }
-          ]
-          resources: {
-            cpu: json('0.25')
-            memory: '0.5Gi'
-          }
-        }
-      ]
-      scale: {
-        minReplicas: 1
-        maxReplicas: 1
-      }
-    }
-  }
-  dependsOn: [
-    virtualNetwork
-    serviceBusTopics
-  ]
-}
 
