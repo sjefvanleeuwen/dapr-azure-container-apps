@@ -12,22 +12,21 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-
       # Checkout code
-    - uses: actions/checkout@main
+      - uses: actions/checkout@main
 
-      # Log into Azure
-    - uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        # Log into Azure
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Deploy Bicep file
-    - name: deploy
-      uses: azure/arm-deploy@v1
-      with:
-        deploymentMode: Incremental
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ secrets.AZURE_RG }}
-        template:  ./provision/environment.bicep
-        parameters: @./provision/storage.parameters.json
-        failOnStdErr: false
+        # Deploy Bicep file
+      - name: deploy
+        uses: azure/arm-deploy@v1
+        with:
+          deploymentMode: Incremental
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ secrets.AZURE_RG }}
+          template: ./provision/environment.bicep
+          parameters: ./provision/storage.parameters.json
+          failOnStdErr: false
