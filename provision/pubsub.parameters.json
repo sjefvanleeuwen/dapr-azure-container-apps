@@ -9,7 +9,8 @@
         },
         "pubSubScopes": {
             "value": [
-                "*"
+                "checkoutapp",
+                "order-processor"
             ]
         }        
     }
