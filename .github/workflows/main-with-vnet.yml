@@ -2,11 +2,11 @@ on:
   workflow_dispatch:
     branches:
       - main
-  push:
-    branches:
-      - main
-    paths:
-      - provision/dapr-with-vnet.bicep
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - provision/dapr-with-vnet.bicep
 name: Platform Deploy with VNET
 jobs:
   build-and-deploy:
