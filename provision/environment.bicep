@@ -1,8 +1,8 @@
-var location = resourceGroup().location
-var id = uniqueString(resourceGroup().id)
+param location string = resourceGroup().location
+param id string = uniqueString(resourceGroup().id)
 
-var logAnalyticsWorkspaceName = 'loganalytics${id}'
-var appInsightsName = 'appinsights${id}'
+param logAnalyticsWorkspaceName string = 'loganalytics${id}'
+param appInsightsName string = 'appinsights${id}'
 
 resource logAnalyticsWorkspace'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
   name: logAnalyticsWorkspaceName
