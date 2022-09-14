@@ -1,5 +1,5 @@
-param location string = resourceGroup().location
-param id string = uniqueString(resourceGroup().id)
+var location = resourceGroup().location
+var id = uniqueString(resourceGroup().id)
 
 var logAnalyticsWorkspaceName = 'loganalytics${id}'
 var appInsightsName = 'appinsights${id}'
