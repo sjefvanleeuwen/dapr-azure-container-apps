@@ -1,6 +1,7 @@
 param location string = resourceGroup().location
 param id string = uniqueString(resourceGroup().id)
 param storageName string = 'statestore${uniqueString(resourceGroup().id)}'
+param storageScopes array
 
 resource stateStore 'Microsoft.Storage/storageAccounts@2021-02-01' = {
   name: storageName
@@ -37,6 +38,9 @@ resource daprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-03
         name: 'accountKey'
         secretRef: 'storageaccountkey'
       }
+    ]
+    scopes: [
+      storageScopes
     ]
   }
 }

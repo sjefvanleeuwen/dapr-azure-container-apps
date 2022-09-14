@@ -28,4 +28,5 @@ jobs:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: ${{ secrets.AZURE_RG }}
           template: ./provision/statestore.bicep
+          parameters: ./provision/storage.parameters.json
           failOnStdErr: false
