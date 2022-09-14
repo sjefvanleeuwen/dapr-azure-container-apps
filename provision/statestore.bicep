@@ -39,8 +39,6 @@ resource daprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-03
         secretRef: 'storageaccountkey'
       }
     ]
-    scopes: [
-      storageScopes
-    ]
+    scopes: storageScopes
   }
 }
