@@ -16,7 +16,7 @@ resource daprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-03
   name: 'env${id}/statestore'
   properties: {
     componentType: 'state.azure.blobstorage'
-    version: 'v2'
+    version: 'v1'
     ignoreErrors: false
     initTimeout: '5s'
     secrets: [
