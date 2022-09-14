@@ -46,7 +46,7 @@ resource orderprocessorapp 'Microsoft.App/containerApps@2022-03-01' = {
       revisionSuffix: '3l0kxv8'
       containers: [
         {
-          image: '${acr.properties.loginServer}/$order:latest'
+          image: '${acr.properties.loginServer}/order:latest'
           name: 'order'
           env: [
             {
