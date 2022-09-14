@@ -4,7 +4,7 @@ on:
       - main
 name: Setup container registry
 jobs:
-  build-and-deploy:
+  bicep-deploy-azure-container-registry:
     runs-on: ubuntu-latest
     steps:
 

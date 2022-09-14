@@ -7,9 +7,9 @@ on:
   #     - main
   #   paths:
   #     - provision/dapr.bicep
-name: Setup PubSub Service Bus
+name: Setup State Storage
 jobs:
-  build-and-deploy:
+  bicep-provision-state-storage:
     runs-on: ubuntu-latest
     steps:
       # Checkout code
@@ -27,6 +27,5 @@ jobs:
           deploymentMode: Incremental
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: ${{ secrets.AZURE_RG }}
-          template: ./provision/pubsub.bicep
-          parameters: ./provision/pubsub.parameters.json
+          template: ./provision/statestore.bicep
           failOnStdErr: false
