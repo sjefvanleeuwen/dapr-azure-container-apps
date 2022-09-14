@@ -28,5 +28,5 @@ jobs:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: ${{ secrets.AZURE_RG }}
           template: ./provision/environment.bicep
-          parameters: ./provision/storage.parameters.json
+          parameters: ./provision/parameters.json
           failOnStdErr: false
