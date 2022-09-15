@@ -66,30 +66,14 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 }
 
 // Environment with VNET
-resource environmentVnet 'Microsoft.App/managedEnvironments@2022-03-01' = if (useVnet) {
+resource environmentVnet 'Microsoft.App/managedEnvironments@2022-03-01' = {
   name: 'env${id}'
   location: location
   properties: {
-    vnetConfiguration: {
+    vnetConfiguration: useVnet ? {
       internal: true
       infrastructureSubnetId: virtualNetwork::subnet1.id
-    }
-    daprAIInstrumentationKey: reference(appInsights.id, '2020-02-02').InstrumentationKey
-    appLogsConfiguration: {
-      destination: 'log-analytics'
-      logAnalyticsConfiguration: {
-        customerId: reference(logAnalyticsWorkspace.id, '2021-06-01').customerId
-        sharedKey: listKeys(logAnalyticsWorkspace.id, '2021-06-01').primarySharedKey
-      }
-    }
-  }
-}
-
-// Environment without VNET
-resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = if (!useVnet) {
-  name: 'env${id}'
-  location: location
-  properties: {
+    } : null
     daprAIInstrumentationKey: reference(appInsights.id, '2020-02-02').InstrumentationKey
     appLogsConfiguration: {
       destination: 'log-analytics'
