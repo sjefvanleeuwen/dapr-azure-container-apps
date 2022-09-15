@@ -11,3 +11,5 @@ name: Matrix
 jobs:
   initialize:
     uses: ./.github/workflows/initialize.yml
+    with:
+      azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
