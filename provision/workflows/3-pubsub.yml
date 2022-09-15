@@ -1,0 +1,18 @@
+on:
+  workflow_dispatch:
+    branches:
+      - main
+name: 3. Setup PubSub Service Bus
+jobs:
+  bicep-deploy-pubsub-service-bus:
+    steps:
+        # Deploy Bicep file
+      - name: deploy
+        uses: azure/arm-deploy@v1
+        with:
+          deploymentMode: Incremental
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ secrets.AZURE_RG }}
+          template: ./provision/pubsub.bicep
+          parameters: ./provision/pubsub.parameters.json
+          failOnStdErr: false

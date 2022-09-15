@@ -1,0 +1,17 @@
+on:
+  workflow_dispatch:
+    branches:
+      - main
+name: 4. Setup container registry
+jobs:
+  bicep-deploy-azure-container-registry:
+    steps:
+      # Deploy Bicep file
+    - name: deploy
+      uses: azure/arm-deploy@v1
+      with:
+        deploymentMode: Incremental
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        resourceGroupName: ${{ secrets.AZURE_RG }}
+        template:  ./provision/registry-setup.bicep
+        failOnStdErr: false

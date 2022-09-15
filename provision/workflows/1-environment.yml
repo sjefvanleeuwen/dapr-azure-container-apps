@@ -1,0 +1,22 @@
+on:
+  workflow_dispatch:
+    branches:
+      - main
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - provision/dapr.bicep
+name: 1. Setup Environment
+jobs:
+  bicep-provision-environment:
+        # Deploy Bicep file
+      - name: deploy
+        uses: azure/arm-deploy@v1
+        with:
+          deploymentMode: Incremental
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ secrets.AZURE_RG }}
+          template: ./provision/environment.bicep
+          parameters: ./provision/environment.parameters.json
+          failOnStdErr: false

@@ -1,0 +1,53 @@
+on:
+  workflow_dispatch:
+    inputs:
+      updateRevision:
+        type: boolean
+        description: update container apps revision
+    branches:
+      - main
+  # push:
+  #   inputs:
+  #     updateRevision:
+  #       type: boolean
+  #       description: update container apps revision
+  #       default: true
+  #   branches:
+  #     - main
+  #   paths:
+  #     - src/services/checkout/**
+name: 5. checkout service containerization
+jobs:
+    build-and-push-container-checkout-service:
+        env:
+          containerName: checkout
+        steps:
+        # checkout the repo
+        - name: 'Checkout GitHub Action'
+          uses: actions/checkout@main
+          
+        - name: 'Login via Azure CLI'
+          uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+        - name: 'Build and push image'
+          uses: azure/docker-login@v1
+          with:
+            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+            username: ${{ secrets.REGISTRY_USERNAME }}
+            password: ${{ secrets.REGISTRY_PASSWORD }}
+        - run: |
+            cd src/services/checkout
+            docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:${{ github.sha }}
+            docker tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:${{ github.sha }} ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:latest
+            # docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:${{ github.sha }}
+            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:latest
+        - name: Azure CLI script
+          if: github.event.inputs.updateRevision == 'true'
+          uses: azure/CLI@v1
+          with:
+            inlineScript: |
+              az config set extension.use_dynamic_install=yes_without_prompt
+              #az containerapp update --name checkoutapp --resource-group ${{ secrets.AZURE_RG }} --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.containerName }}:latest
+              az containerapp revision restart --revision checkoutapp--4thiv3g --resource-group ${{ secrets.AZURE_RG }}

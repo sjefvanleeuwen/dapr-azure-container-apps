@@ -1,0 +1,21 @@
+on:
+  workflow_dispatch:
+    branches:
+      - main
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - provision/dapr.bicep
+name: 0. Initialize
+jobs:
+  initialize:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout code
+      - uses: actions/checkout@main
+
+        # Log into Azure
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
