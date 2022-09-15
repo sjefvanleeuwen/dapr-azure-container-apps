@@ -7,9 +7,9 @@ on:
   #     - main
   #   paths:
   #     - provision/dapr.bicep
-name: 10. Setup Container App Redis Search
+name: 10. Setup Container App Lucene
 jobs:
-  bicep-provision-checkout-container-app:
+  bicep-provision-lucene-container-app:
     runs-on: ubuntu-latest
     steps:
       # Checkout code
@@ -27,6 +27,6 @@ jobs:
           deploymentMode: Incremental
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: ${{ secrets.AZURE_RG }}
-          template: ./src/services/redis-search/provision/service.bicep
-          parameters: ./src/services/redis-search/provision/service.parameters.json
+          template: ./src/services/lucene/provision/service.bicep
+          parameters: ./src/services/lucene/provision/service.parameters.json
           failOnStdErr: false
