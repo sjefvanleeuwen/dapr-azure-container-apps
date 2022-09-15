@@ -5,6 +5,9 @@ jobs:
   bicep-provision-environment:
     runs-on: ubuntu-latest
     steps:
+      - name: login
+        uses: ./.github/workflows/login.yml
+        secrets: inherit
         # Deploy Bicep file
       - name: deploy
         uses: azure/arm-deploy@v1
