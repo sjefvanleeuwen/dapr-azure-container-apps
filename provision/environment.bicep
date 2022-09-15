@@ -5,8 +5,8 @@ param subnetName string = '${virtualNetworkName}-subnet'
 param addressPrefix string = '10.66.66.0/23'
 param useVnet bool= false
 
-param logAnalyticsWorkspaceName string = 'loganalytics${id}'
-param appInsightsName string = 'appinsights${id}'
+param logAnalyticsWorkspaceName string = 'log${id}'
+param appInsightsName string = 'insights${id}'
 
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2020-11-01' = if(useVnet) {
   name: virtualNetworkName
