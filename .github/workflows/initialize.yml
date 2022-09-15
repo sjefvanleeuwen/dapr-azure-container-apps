@@ -1,9 +1,9 @@
 on:
   workflow_call:
-    inputs:
-      secrets:
-        azure_credentials:
-          required: true
+    # inputs:
+    #   secrets:
+    #     azure_credentials:
+    #       required: true
 name: 0. Initialize
 jobs:
   initialize:
