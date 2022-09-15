@@ -19,11 +19,11 @@ resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2021-11-01' = {
   name: 'pubsub${id}'
   location: location
   sku: {
-    name: 'Standard'
+    name: useVnet ? 'Premium' :  'Standard' // only premium is supported with vnet
   }
 }
 
-resource virtualNetwork 'Microsoft.Network/virtualNetworks@2020-11-01' existing = if(true)  {
+resource virtualNetwork 'Microsoft.Network/virtualNetworks@2020-11-01' existing = if(useVnet)  {
   name: virtualNetworkName
   resource subnet1 'subnets' existing = {
     name: '${virtualNetworkName}-subnet'

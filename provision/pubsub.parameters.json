@@ -4,7 +4,7 @@
     "parameters": {
         "topics": {"value": ["newOrder"]},
         "pubSubScopes": {"value": ["checkoutapp", "order-processor"]},      
-        "useVnet": { "value": true },
+        "useVnet": { "value": false },
         "virtualNetworkName": { "value": "container-apps-vnet" }
     }
 }
