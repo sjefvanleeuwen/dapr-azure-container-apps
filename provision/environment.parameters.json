@@ -11,10 +11,7 @@
             "value": "container-apps-vnet"
         },
         "addressPrefix": {
-            "value": [
-                "10.66.66.0/23"
-            ]
+            "value": "10.66.66.0/23"
         }
-
     }
 }
