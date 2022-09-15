@@ -10,8 +10,8 @@ on:
 name: Matrix
 jobs:
   matrix:
-    secrets: inherit
     runs-on: ubuntu-latest
+    secrets: inherit
     steps: 
         # Log into Azure
       - uses: azure/login@v1.4.3
