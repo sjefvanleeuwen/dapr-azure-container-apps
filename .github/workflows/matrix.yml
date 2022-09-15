@@ -11,6 +11,7 @@ name: Matrix
 jobs:
   matrix:
     runs-on: ubuntu-latest
+    secrets: inherit
     steps: 
         # Log into Azure
       - uses: azure/login@v1.4.3
@@ -20,4 +21,3 @@ jobs:
         uses: ./.github/workflows/initialize.yml
       - name: environment
         uses: ./.github/workflows/environment.yml
-        secrets: inherit
