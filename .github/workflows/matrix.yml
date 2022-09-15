@@ -7,7 +7,7 @@ on:
   #     - main
   #   paths:
   #     - provision/dapr.bicep
-name: 0. Initialize
+name: Matrix
 jobs:
-  call-workflow-in-local-repo:
-    uses: ./provision/workflows/0-initialize.yaml
+  initialize:
+    uses: ./provision/workflows/0-initialize.yaml@main
