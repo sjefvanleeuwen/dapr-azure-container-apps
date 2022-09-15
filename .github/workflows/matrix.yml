@@ -12,6 +12,8 @@ jobs:
   matrix:
     runs-on: ubuntu-latest
     steps: 
+      # Checkout code
+      - uses: actions/checkout@main
         # Log into Azure
       - uses: azure/login@v1.4.3
         with:
