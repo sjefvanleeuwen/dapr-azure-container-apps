@@ -1,8 +1,8 @@
 on:
   workflow_call:
-    secrets:
-      credentials:
-        required: true
+    # secrets:
+    #   credentials:
+    #     required: true
 name: 0. Initialize
 jobs:
   initialize:
