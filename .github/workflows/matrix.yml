@@ -17,4 +17,5 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
   initialize:
+    needs: login
     uses: ./.github/workflows/initialize.yml
