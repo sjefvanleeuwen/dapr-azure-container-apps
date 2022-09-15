@@ -19,3 +19,6 @@ jobs:
   initialize:
     needs: login
     uses: ./.github/workflows/initialize.yml
+  environment:
+    needs: login
+    uses: ./.github/workflows/environment.yml
