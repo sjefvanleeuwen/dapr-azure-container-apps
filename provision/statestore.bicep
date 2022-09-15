@@ -3,11 +3,15 @@ param id string = uniqueString(resourceGroup().id)
 param storageName string = 'statestore${uniqueString(resourceGroup().id)}'
 param storageScopes array
 
-resource stateStore 'Microsoft.Storage/storageAccounts@2021-02-01' = {
+resource stateStore 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   name: storageName
   location: location
+  properties: {
+    allowBlobPublicAccess: false
+  }
   kind: 'StorageV2'
   sku: {
+
     name: 'Standard_LRS'
   }
 }
