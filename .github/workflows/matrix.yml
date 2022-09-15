@@ -10,4 +10,4 @@ on:
 name: Matrix
 jobs:
   initialize:
-    uses: ./provision/workflows/0-initialize.yaml@main
+    uses: ./.github/workflows/reusable/0-initialize.yml@main
