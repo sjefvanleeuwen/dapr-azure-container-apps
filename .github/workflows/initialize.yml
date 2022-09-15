@@ -6,6 +6,7 @@ on:
 name: 0. Initialize
 jobs:
   initialize:
+    runs-on: ubuntu-latest
     steps:
       # Checkout code
       - uses: actions/checkout@main
