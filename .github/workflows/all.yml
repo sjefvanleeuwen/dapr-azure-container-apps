@@ -9,7 +9,7 @@ on:
   #     - provision/dapr.bicep
 name: Deploy Environment
 jobs:
-  matrix:
+  deploy-environment:
     runs-on: ubuntu-latest
     steps: 
       # Checkout code
