@@ -1,4 +1,3 @@
-name: Initialize
 on:
   workflow_call:
     secrets:
