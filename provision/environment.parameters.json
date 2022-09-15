@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "useVNet": { "value": "false" },
+        "useVNet": { "value": false },
         "virtualNetworkName": { "value": "container-apps-vnet" },
         "addressPrefix": { "value": "10.66.66.0/23" }
     }
