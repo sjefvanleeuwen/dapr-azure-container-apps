@@ -22,3 +22,4 @@ jobs:
   environment:
     needs: login
     uses: ./.github/workflows/environment.yml
+    secrets: inherit
