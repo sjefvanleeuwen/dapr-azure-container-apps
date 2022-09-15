@@ -15,4 +15,4 @@ jobs:
         # Log into Azure
       - uses: azure/login@v1
         with:
-          creds: azure_credentials
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
