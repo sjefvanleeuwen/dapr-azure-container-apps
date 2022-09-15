@@ -3,6 +3,7 @@ on:
 name: 1. Setup Environment
 jobs:
   bicep-provision-environment:
+    runs-on: ubuntu-latest
     steps:
         # Deploy Bicep file
       - name: deploy
