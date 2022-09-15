@@ -6,12 +6,6 @@ on:
 name: 0. Initialize
 jobs:
   initialize:
-    runs-on: ubuntu-latest
     steps:
       # Checkout code
       - uses: actions/checkout@main
-
-        # Log into Azure
-      - uses: azure/login@v1
-        with:
-          creds: credentials

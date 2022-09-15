@@ -9,6 +9,8 @@ on:
   #     - provision/dapr.bicep
 name: Matrix
 jobs:
+  login:
+    runs-on: ubuntu-latest
   initialize:
     uses: ./.github/workflows/initialize.yml
     secrets:
