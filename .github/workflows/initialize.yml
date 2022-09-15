@@ -1,12 +1,5 @@
 on:
   workflow_call:
-    branches:
-      - main
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - provision/dapr.bicep
 name: 0. Initialize
 jobs:
   initialize:
