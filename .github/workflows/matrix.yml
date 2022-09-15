@@ -12,5 +12,4 @@ jobs:
   initialize:
     uses: ./.github/workflows/initialize.yml
     with:
-      secrets: 
-        credentials: ${{ AZURE_CREDENTIALS }}
+      credentials: ${{ secrets.AZURE_CREDENTIALS }}
