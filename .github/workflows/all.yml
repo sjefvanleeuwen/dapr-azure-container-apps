@@ -62,7 +62,7 @@ jobs:
           docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/checkout:${{ github.sha }}
           docker tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/checkout:${{ github.sha }} ${{ secrets.REGISTRY_LOGIN_SERVER }}/checkout:latest
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/checkout:latest
-          cd src/services/order-processor
+          cd ../order-processor
           docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/order:${{ github.sha }}
           docker tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/order:${{ github.sha }} ${{ secrets.REGISTRY_LOGIN_SERVER }}/order:latest
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/order:latest
