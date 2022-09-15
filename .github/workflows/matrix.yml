@@ -9,17 +9,15 @@ on:
   #     - provision/dapr.bicep
 name: Matrix
 jobs:
-  login:
+  matrix:
     runs-on: ubuntu-latest
     steps: 
         # Log into Azure
       - uses: azure/login@v1.4.3
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-  initialize:
-    needs: login
-    uses: ./.github/workflows/initialize.yml
-  environment:
-    needs: login
-    uses: ./.github/workflows/environment.yml
-    secrets: inherit
+      - name: initialize
+        uses: ./.github/workflows/initialize.yml
+      - name: environment:
+        uses: ./.github/workflows/environment.yml
+        secrets: inherit
