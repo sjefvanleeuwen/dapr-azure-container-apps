@@ -9,12 +9,15 @@ param acrName string = 'acr${uniqueString(resourceGroup().id)}'
 param acrSku string = 'Basic'
 
 resource acrResource 'Microsoft.ContainerRegistry/registries@2021-06-01-preview' = {
+  properties: {
+    publicNetworkAccess: 'Disabled'
+  }
   name: acrName
   location: location
   sku: {
     name: acrSku
   }
-  properties: {
-    adminUserEnabled: true
-  }
+  // properties: {
+  //   adminUserEnabled: true
+  // }
 }
