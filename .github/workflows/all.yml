@@ -13,50 +13,28 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@main
-      - uses: azure/login@v1.4.3
+        name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
+        uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }} 
+          enable-AzPSSession: true
       - name: deploy aca
-        uses: azure/arm-deploy@v1
-        with:
-          deploymentMode: Incremental
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          resourceGroupName: ${{ secrets.AZURE_RG }}
-          template: ./provision/environment.bicep
-          parameters: ./provision/environment.parameters.json
-          failOnStdErr: false
+        run: |
+          az deployment group create --mode Incremental --resource-group ${{ secrets.AZURE_RG }} --template-file ./provision/environment.bicep --parameters: ./provision/environment.parameters.json
       - name: deploy state storage
-        uses: azure/arm-deploy@v1
-        with:
-          deploymentMode: Incremental
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          resourceGroupName: ${{ secrets.AZURE_RG }}
-          template: ./provision/statestore.bicep
-          parameters: ./provision/storage.parameters.json
-          failOnStdErr: false
+        run: |
+          az deployment group create --mode Incremental --resource-group ${{ secrets.AZURE_RG }} --template-file ./provision/statestore.bicep --parameters: ./provision/storage.parameters.json
       - name: deploy pubsub
-        uses: azure/arm-deploy@v1
-        with:
-          deploymentMode: Incremental
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          resourceGroupName: ${{ secrets.AZURE_RG }}
-          template: ./provision/pubsub.bicep
-          parameters: ./provision/pubsub.parameters.json
-          failOnStdErr: false
+        run: |
+          az deployment group create --mode Incremental --resource-group ${{ secrets.AZURE_RG }} --template-file ./provision/pubsub.bicep --parameters: ./provision/pubsub.parameters.json
       - name: deploy container registry
-        uses: azure/arm-deploy@v1
-        with:
-          deploymentMode: Incremental
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          resourceGroupName: ${{ secrets.AZURE_RG }}
-          template:  ./provision/registry-setup.bicep
-          failOnStdErr: false
+        run: |
+          az deployment group create --mode Incremental --resource-group ${{ secrets.AZURE_RG }} --template-file ./provision/registry-setup.bicep
       - name: docker push checkout app
-        uses: azure/docker-login@v1
-        with:
-          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+        run: |
+          az acr login --name ${{ secrets.REGISTRY_LOGIN_SERVER }}
       - run: |
           cd src/services/checkout
           docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/checkout:${{ github.sha }}
