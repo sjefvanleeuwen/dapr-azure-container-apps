@@ -14,7 +14,9 @@ name: Deploy Environment
 jobs:
   deploy-environment:
     runs-on: ubuntu-latest
-    steps: 
+    steps:
+      - name: checkout main
+        uses: actions/checkout@main
       - name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
         uses: azure/login@v1
         with:
