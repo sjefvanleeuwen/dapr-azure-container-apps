@@ -24,13 +24,13 @@ jobs:
           enable-AzPSSession: true
       - name: deploy aca
         run: |
-          az deployment group create --mode Incremental --resource-group ${{ secrets.AZURE_RG }} --template-file ./provision/environment.bicep --parameters: ./provision/environment.parameters.json
+          az deployment group create --mode Incremental --resource-group ${{ secrets.AZURE_RG }} --template-file ./provision/environment.bicep --parameters ./provision/environment.parameters.json
       - name: deploy state storage
         run: |
-          az deployment group create --mode Incremental --resource-group ${{ secrets.AZURE_RG }} --template-file ./provision/statestore.bicep --parameters: ./provision/storage.parameters.json
+          az deployment group create --mode Incremental --resource-group ${{ secrets.AZURE_RG }} --template-file ./provision/statestore.bicep --parameters ./provision/storage.parameters.json
       - name: deploy pubsub
         run: |
-          az deployment group create --mode Incremental --resource-group ${{ secrets.AZURE_RG }} --template-file ./provision/pubsub.bicep --parameters: ./provision/pubsub.parameters.json
+          az deployment group create --mode Incremental --resource-group ${{ secrets.AZURE_RG }} --template-file ./provision/pubsub.bicep --parameters ./provision/pubsub.parameters.json
       - name: deploy container registry
         run: |
           az deployment group create --mode Incremental --resource-group ${{ secrets.AZURE_RG }} --template-file ./provision/registry-setup.bicep
