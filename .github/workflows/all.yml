@@ -13,6 +13,7 @@ permissions:
 name: Deploy Environment
 jobs:
   deploy-environment:
+    environment: dev
     runs-on: ubuntu-latest
     steps:
       - name: checkout main
